@@ -1,15 +1,59 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var SelectChain = require('react-select-chain');
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import SelectChain, { GetDefaultItemFunction } from 'react-select-chain';
 
-var App = React.createClass({
-	render () {
-		return (
-			<div>
-				<SelectChain />
-			</div>
-		);
+class App extends Component {
+	constructor() {
+		super()
+		this.state = { data: null }
 	}
-});
+
+	processResponse(data) {
+		this.setState({ ...this.state, data });
+	}
+
+	getMockData(data) {
+		return {
+			values: {
+				dates: ["01/01/2017", "01/02/2017", "01/03/2017"],
+				cities: [{ id: "1", name: "Minsk" }, { id: "2", name: "Moscow" }, { id: "3", name: "New York" }],
+				stations: [{ id: "1", name: "Place #1" }, { id: "2", name: "Place #2" }],
+				timeOfDay: [{ id: "1", name: "Morning" }, { id: "2", name: "Afternoon" }, { id: "3", name: "Evening" }],
+			},
+			data: "Hello! There is data for such request:" + JSON.stringify(data)
+		}
+	}
+
+	render() {
+
+		const selectOptions = {
+			filters: [
+				{ key: 'date', getId: (item) => item, valuesKey: 'dates', getDefaultItem: GetDefaultItemFunction("From the beginning") },
+				{ key: 'dateTill', getId: (item) => item, valuesKey: 'dates', getDefaultItem: GetDefaultItemFunction("Till now") },
+				{ key: 'city', valuesKey: 'cities', dependsOnPrevious: false },
+				{ key: 'station', valuesKey: 'stations' },
+				{ key: 'timeOfDay', valuesKey: 'timeOfDay' }
+			],
+			getData: this.getMockData,
+			selectedValues: { date: "01/01/2017", city: "1" },
+			onDataReturned: this.processResponse.bind(this)
+		}
+
+		return <div>
+			<h2>Example</h2>
+			<p>Select where to by a ticket to:<br />
+				<SelectChain {...selectOptions} /></p>
+			<p>Data returned:<br />
+				{this.state.data}</p>
+			<h2>Usage</h2>
+			<p>
+				See <code>selectOptions</code> in example of initial parameters. <code>getMockData</code> shows how to pass values into inputs.<br />
+			</p>
+			<p>
+				The component takes currently selected values from arguments and then retrieves data about options for every select. When an option is selected it retrieves data again and resets inputs to right of crrent one to "All" state.
+			</p>
+		</div>
+	}
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));

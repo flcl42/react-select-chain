@@ -1,7 +1,6 @@
 # Select Chain
 
-__COMPONENT DESCRIPTION GOES HERE__
-
+A chain of selects that allows to choose multiple specifying options
 
 ## Demo & Examples
 
@@ -30,22 +29,17 @@ npm install react-select-chain --save
 
 ## Usage
 
-__EXPLAIN USAGE HERE__
+
+See `selectOptions` in example of initial parameters. `getMockData` shows how to pass values into inputs.
+
+The component takes currently selected values from arguments and then retrieves data about options for every select. When an option is selected it retrieves data again and resets inputs to right of current one to "All" state.
+
 
 ```
 var SelectChain = require('react-select-chain');
 
-<SelectChain>Example</SelectChain>
+<SelectChain {...options} />
 ```
-
-### Properties
-
-* __DOCUMENT PROPERTIES HERE__
-
-### Notes
-
-__ADDITIONAL USAGE NOTES__
-
 
 ## Development (`src`, `lib` and the build process)
 
@@ -55,7 +49,7 @@ To build, watch and serve the examples (which will also watch the component sour
 
 ## License
 
-__PUT LICENSE HERE__
+Use it as you wish but don't cry too much
 
 Copyright (c) 2017 FLCL.
 

@@ -43,15 +43,8 @@ class App extends Component {
 			<h2>Example</h2>
 			<p>Select where to by a ticket to:<br />
 				<SelectChain {...selectOptions} /></p>
-			<p>Data returned:<br />
+			<p>Data returned:
 				{this.state.data}</p>
-			<h2>Usage</h2>
-			<p>
-				See <code>selectOptions</code> in example of initial parameters. <code>getMockData</code> shows how to pass values into inputs.<br />
-			</p>
-			<p>
-				The component takes currently selected values from arguments and then retrieves data about options for every select. When an option is selected it retrieves data again and resets inputs to right of crrent one to "All" state.
-			</p>
 		</div>
 	}
 }
